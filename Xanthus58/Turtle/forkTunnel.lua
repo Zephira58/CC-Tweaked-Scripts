@@ -166,6 +166,7 @@ for n = 1, length do
         turtle.turnRight()
         turtle.forward()
         torchdist = tonumber(0)
+        torchtotal = torchtotal + 1
     end
     turtle.placeDown()
     tryDigUp()
