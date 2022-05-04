@@ -1,3 +1,13 @@
+term.clear()
+beforeFuel = tonumber(0)
+beforeFuel = turtle.getFuelLevel()
+
+print("-Information-")
+print("`forkTunnel` created by `Xanthus58`")
+print("Version: 1.2")
+print(" ")
+print("-Status-")
+
 if not turtle then
     printError("Requires a Turtle")
     return
@@ -139,11 +149,11 @@ local function tryForward()
     return true
 end
 
-print("Tunnelling...")
+print("Mining...")
 torchdist = tonumber(0)
-
+torchtotal = tonumber(0)
 for n = 1, length do
-    if torchdist > 4 then
+    if torchdist > 8 then
         turtle.select(2)
         turtle.turnLeft()
         turtle.turnLeft()
@@ -151,7 +161,7 @@ for n = 1, length do
         turtle.up()
         turtle.turnRight()
         turtle.place(2)
-        print("Placing Torch")
+        print("Placing Torch...")
         turtle.down()
         turtle.turnRight()
         turtle.forward()
@@ -183,7 +193,7 @@ for n = 1, length do
 end
 
 
-print( "Returning to start..." )
+print( "Returning to dock..." )
 
 -- Return to where we started
 turtle.turnLeft()
@@ -196,9 +206,21 @@ end
 turtle.turnRight()
 turtle.turnRight()
 
-print("Tunnel complete.")
+term.clear()
+
+afterFuel = tonumber(0)
+afterFuel = turtle.getFuelLevel()
+
+coalFuel = beforeFuel - afterFuel
+coalUse = coalFuel / 80
+print("-Logs-")
+print("Docked At Starting Postition")
+print(" ")
 print("Mined " .. collected .. " items total")
-print("Returned to starting position")
-print("Fork Created by Xanthus58")
+print(torchtotal .. " Torches Placed")
+print(coalFuel .. " Fuel Used or " .. coalUse .. " coal")
+print(" ")
+print("`forkTunnel` created by Xanthus58")
+print("Version: 1.2")
 
 -- https://pastebin.com/jpfRk9PK
