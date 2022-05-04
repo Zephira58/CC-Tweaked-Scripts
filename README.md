@@ -19,7 +19,7 @@ you may run `pastebin get <id>` to download the file locally to your CC
 
 > ID: jpfRk9PK
 
-> Description: A small fork of the base `tunnel` command; it will return the turtle to its orignal position; making it easier for automatic storage systems via hoppers.
+> Description: A small fork of the base `tunnel` command; it will return the turtle to its orignal position; making it easier for automatic storage; place torches; and log actions.
 
 > Usage: `forkTunnel <Length>` Please ensure that coal/fuel is in slot 1, and torches are in slot 2 for full effect. 
 
@@ -28,6 +28,6 @@ you may run `pastebin get <id>` to download the file locally to your CC
 
 > ID: Y7tsMdeY
 
-> Description: Designed to stay in one place; this will automatilcly mine the block directly in front of it. Originally designed for use with cobblestone generators.
+> Description: Designed to stay in one place; this will automatilcly mine the block directly in front of it. Originally designed for use with cobblestone generators. Logs how many blocks its proccessd.
 
 > Usage: `autoMine` Ensure the Turtle is facing and next to the block your attempting to mine.

@@ -1,6 +1,4 @@
 term.clear()
-beforeFuel = tonumber(0)
-beforeFuel = turtle.getFuelLevel()
 
 print("-Information-")
 print("`autoMiner` created by `Xanthus58`")
@@ -24,14 +22,11 @@ while turtle.detect() == true do
     collect()
 end
 
-afterFuel = tonumber(0)
-afterFuel = turtle.getFuelLevel()
-
-coalFuel = beforeFuel - afterFuel
-coalUse = coalFuel / 80
 term.clear()
 print("-Logs-")
-print("Mined " .. collected .. " items total")
-print(coalFuel .. " Fuel Used or " .. coalUse .. " coal")
+print("Mined " .. collected .. " items")
 print(" ")
 print("`autoMiner` created by Xanthus58")
+print("Version: 1.1")
+
+--https://pastebin.com/Y7tsMdeY
