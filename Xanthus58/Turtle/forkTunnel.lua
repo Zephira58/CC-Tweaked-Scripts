@@ -140,8 +140,23 @@ local function tryForward()
 end
 
 print("Tunnelling...")
+torchdist = tonumber(0)
 
 for n = 1, length do
+    if torchdist > 4 then
+        turtle.select(2)
+        turtle.turnLeft()
+        turtle.turnLeft()
+        turtle.forward()
+        turtle.up()
+        turtle.turnRight()
+        turtle.place(2)
+        print("Placing Torch")
+        turtle.down()
+        turtle.turnRight()
+        turtle.forward()
+        torchdist = tonumber(0)
+    end
     turtle.placeDown()
     tryDigUp()
     turtle.turnLeft()
@@ -154,7 +169,7 @@ for n = 1, length do
     tryDown()
     tryDig()
     turtle.turnLeft()
-
+    torchdist = torchdist + 1
     if n < length then
         tryDig()
         if not tryForward() then
