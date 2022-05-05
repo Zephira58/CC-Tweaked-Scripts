@@ -21,7 +21,7 @@ you may run `pastebin get <id>` to download the file locally to your CC
 
 > Description: A small fork of the base `tunnel` command; it will return the turtle to its orignal position; making it easier for automatic storage; place torches; and log actions.
 
-> Usage: `forkTunnel <Length>` Please ensure that coal/fuel is in slot 1, and torches are in slot 2 for full effect. 
+> Usage: `<length> <skiptoo>` Please ensure that coal/fuel is in slot 1, and torches are in slot 2 for full effect.
 
 #### autoMiner
 > Name: autoMiner
