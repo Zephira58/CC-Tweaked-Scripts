@@ -4,7 +4,7 @@ beforeFuel = turtle.getFuelLevel()
 
 print("-Information-")
 print("`forkTunnel` created by `Xanthus58`")
-print("Version: 1.2")
+print("Version: 1.3")
 print(" ")
 print("-Status-")
 
@@ -14,18 +14,22 @@ if not turtle then
 end
 
 local tArgs = { ... }
-if #tArgs ~= 1 then
+
+if #tArgs ~= 2 then
     local programName = arg[0] or fs.getName(shell.getRunningProgram())
-    print("Usage: " .. programName .. " <length>")
+    print("Usage: " .. programName .. " <length> <skiptoo>")
     return
 end
 
 -- Mine in a quarry pattern until we hit something we can't dig
+
 local length = tonumber(tArgs[1])
+local skiptoo = tonumber(tArgs[2])
 if length < 1 then
     print("Tunnel length must be positive")
     return
 end
+
 local collected = 0
 
 local function collect()
@@ -149,10 +153,21 @@ local function tryForward()
     return true
 end
 
+homeskip = skiptoo
+toaldist = length + skiptoo
+
 print("Mining...")
-torchdist = tonumber(0)
+torchdist = tonumber(7)
 torchtotal = tonumber(0)
+turtle.forward()
 for n = 1, length do
+    if skiptoo > 0 then
+        print("Skipping " .. skiptoo .. " blocks...")
+    end
+        while skiptoo > 0 do
+            turtle.forward()
+            skiptoo = skiptoo - 1
+        end
     if torchdist > 8 then
         turtle.select(2)
         turtle.turnLeft()
@@ -200,10 +215,17 @@ print( "Returning to dock..." )
 turtle.turnLeft()
 turtle.turnLeft()
 
+turtle.forward()
+while homeskip > 0 do
+    turtle.forward()
+    homeskip = homeskip -1
+end
+
 while length > 1 do
     turtle.forward()
     length = length - 1
 end
+
 turtle.turnRight()
 turtle.turnRight()
 
@@ -214,14 +236,16 @@ afterFuel = turtle.getFuelLevel()
 
 coalFuel = beforeFuel - afterFuel
 coalUse = coalFuel / 80
+
 print("-Logs-")
 print("Docked At Starting Postition")
 print(" ")
 print("Mined " .. collected .. " items total")
 print(torchtotal .. " Torches Placed")
 print(coalFuel .. " Fuel Used or " .. coalUse .. " coal")
+print("Traveled " .. toaldist .. " blocks")
 print(" ")
 print("`forkTunnel` created by Xanthus58")
-print("Version: 1.2")
+print("Version: 1.3")
 
 -- https://pastebin.com/jpfRk9PK
