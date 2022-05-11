@@ -32,6 +32,9 @@ you may run `pastebin get <id>` to download the file locally to your CC
 
 > Usage: `autoMine` Ensure the Turtle is facing and next to the block your attempting to mine.
 
+### OS
+
 #### PhileOS
 > An os script not made by me; found here https://forums.computercraft.cc/index.php?topic=419.0
+
 > `wget run https://raw.githubusercontent.com/Ryans-MC-Computer-Mods-Projects/POS/main/Install.lua`
