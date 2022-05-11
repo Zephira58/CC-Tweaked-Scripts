@@ -154,7 +154,7 @@ local function tryForward()
 end
 
 homeskip = skiptoo
-toaldist = length -1 + skiptoo
+toaldist = length + skiptoo
 
 torchdist = tonumber(7)
 torchtotal = tonumber(0)
