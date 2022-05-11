@@ -31,3 +31,6 @@ you may run `pastebin get <id>` to download the file locally to your CC
 > Description: Designed to stay in one place; this will automatilcly mine the block directly in front of it. Originally designed for use with cobblestone generators. Logs how many blocks its proccessd.
 
 > Usage: `autoMine` Ensure the Turtle is facing and next to the block your attempting to mine.
+
+#### PhileOS
+> An os script not made by me; found here https://forums.computercraft.cc/index.php?topic=419.0
