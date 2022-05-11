@@ -159,6 +159,7 @@ toaldist = length + skiptoo
 print("Mining...")
 torchdist = tonumber(7)
 torchtotal = tonumber(0)
+tryDig()
 turtle.forward()
 for n = 1, length do
     if skiptoo > 0 then

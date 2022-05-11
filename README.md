@@ -17,7 +17,7 @@ you may run `pastebin get <id>` to download the file locally to your CC
 
 > Name: forkTunnel
 
-> ID: jpfRk9PK
+> ID: `jpfRk9PK`
 
 > Description: A small fork of the base `tunnel` command; it will return the turtle to its orignal position; making it easier for automatic storage; place torches; and log actions.
 
@@ -26,7 +26,7 @@ you may run `pastebin get <id>` to download the file locally to your CC
 #### autoMiner
 > Name: autoMiner
 
-> ID: Y7tsMdeY
+> ID: `Y7tsMdeY`
 
 > Description: Designed to stay in one place; this will automatilcly mine the block directly in front of it. Originally designed for use with cobblestone generators. Logs how many blocks its proccessd.
 
