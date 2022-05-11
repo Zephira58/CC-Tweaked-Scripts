@@ -158,6 +158,7 @@ toaldist = length -1 + skiptoo
 
 torchdist = tonumber(7)
 torchtotal = tonumber(0)
+print("Mining...")
 tryDig()
 turtle.forward()
 for n = 1, length do
@@ -184,7 +185,6 @@ for n = 1, length do
         torchdist = tonumber(0)
         torchtotal = torchtotal + 1
     end
-    print("Mining...")
     turtle.placeDown()
     tryDigUp()
     turtle.turnLeft()
