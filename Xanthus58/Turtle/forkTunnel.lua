@@ -154,9 +154,8 @@ local function tryForward()
 end
 
 homeskip = skiptoo
-toaldist = length + skiptoo
+toaldist = length -1 + skiptoo
 
-print("Mining...")
 torchdist = tonumber(7)
 torchtotal = tonumber(0)
 tryDig()
@@ -185,6 +184,7 @@ for n = 1, length do
         torchdist = tonumber(0)
         torchtotal = torchtotal + 1
     end
+    print("Mining...")
     turtle.placeDown()
     tryDigUp()
     turtle.turnLeft()
