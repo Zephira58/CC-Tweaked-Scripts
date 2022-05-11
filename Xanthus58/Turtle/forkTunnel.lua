@@ -4,7 +4,7 @@ beforeFuel = turtle.getFuelLevel()
 
 print("-Information-")
 print("`forkTunnel` created by `Xanthus58`")
-print("Version: 1.3")
+print("Version: 1.4")
 print(" ")
 print("-Status-")
 
@@ -166,6 +166,7 @@ for n = 1, length do
         print("Skipping " .. skiptoo .. " blocks...")
     end
         while skiptoo > 0 do
+            tryDig()
             turtle.forward()
             skiptoo = skiptoo - 1
         end
@@ -218,6 +219,7 @@ turtle.turnLeft()
 
 turtle.forward()
 while homeskip > 0 do
+    tryDig()
     turtle.forward()
     homeskip = homeskip -1
 end
@@ -247,6 +249,6 @@ print(coalFuel .. " Fuel Used or " .. coalUse .. " coal")
 print("Traveled " .. toaldist .. " blocks")
 print(" ")
 print("`forkTunnel` created by Xanthus58")
-print("Version: 1.3")
+print("Version: 1.4")
 
 -- https://pastebin.com/jpfRk9PK
