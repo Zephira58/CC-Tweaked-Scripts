@@ -166,7 +166,7 @@ for n = 1, length do
     end
         while skiptoo > 0 do
             turtle.forward()
-            skiptoo = skiptoo - 0
+            skiptoo = skiptoo - 1
         end
     if torchdist > 8 then
         turtle.select(2)
