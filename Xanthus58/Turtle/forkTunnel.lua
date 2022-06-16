@@ -4,7 +4,13 @@ beforeFuel = turtle.getFuelLevel()
 
 print("-Information-")
 print("`forkTunnel` created by `Xanthus58`")
-print("Version: 1.4")
+print("Version: 1.5")
+print("")
+print("-Instructions-")
+print("Ensure slot 1 is full of coal")
+print("Ensure slot 2 is full of torches")
+print("Ensure slot 4-5 is empty")
+sleep(5)
 print(" ")
 print("-Status-")
 
@@ -153,23 +159,8 @@ local function tryForward()
     return true
 end
 
-homeskip = skiptoo
-toaldist = length + skiptoo
-
-torchdist = tonumber(7)
-torchtotal = tonumber(0)
-print("Mining...")
-tryDig()
-turtle.forward()
-for n = 1, length do
-    if skiptoo > 0 then
-        print("Skipping " .. skiptoo .. " blocks...")
-    end
-        while skiptoo > 0 do
-            tryDig()
-            turtle.forward()
-            skiptoo = skiptoo - 1
-        end
+torch_error = 0
+local function torchPlace()
     if torchdist > 8 then
         turtle.select(2)
         turtle.turnLeft()
@@ -177,15 +168,78 @@ for n = 1, length do
         turtle.forward()
         turtle.up()
         turtle.turnRight()
-        turtle.place(2)
-        print("Placing Torch...")
-        turtle.down()
+        turtle.forward()
+        if turtle.detect() == false then
+            print("Invalid surface to place torch. Skipping...")
+            turtle.turnRight()
+            turtle.turnRight()
+            turtle.forward()
+            turtle.turnLeft()
+            turtle.down()
+            turtle.forward()
+            torch_error = torch_error + 1
+        else
+            turtle.turnRight()
+            turtle.turnRight()
+            turtle.forward()
+            turtle.turnLeft()
+            turtle.turnLeft()
+            turtle.place(2)
+            print("Placing Torch...")
+            turtle.down()
+            turtle.turnRight()
+            turtle.forward()
+            torchtotal = torchtotal + 1
+        end
+        torchdist = tonumber(0)
+    end
+end
+
+blocks_placed = 0
+local function detectCave()
+    if turtle.detectDown() == false then
+        turtle.select(3)
+        if turtle.getItemCount(3) == 0 then
+            turtle.select(4)
+        end
+        turtle.placeDown()
         turtle.turnRight()
         turtle.forward()
-        torchdist = tonumber(0)
-        torchtotal = torchtotal + 1
+        turtle.placeDown()
+        turtle.turnLeft()
+        turtle.turnLeft()
+        turtle.forward()
+        turtle.forward()
+        turtle.placeDown()
+        turtle.turnRight()
+        turtle.turnRight()
+        turtle.forward()
+        turtle.turnLeft()
+        blocks_placed = blocks_placed + 3
     end
-    turtle.placeDown()
+end
+
+homeskip = skiptoo
+toaldist = length + skiptoo
+
+torchdist = tonumber(7)
+torchtotal = tonumber(0)
+
+print("Mining...")
+tryDig()
+turtle.forward()
+for n = 1, length do
+    refuel()
+    if skiptoo > 0 then
+        print("Skipping " .. skiptoo .. " blocks...")
+    end
+    while skiptoo > 0 do
+        tryDig()
+        detectCave()
+        turtle.forward()
+        skiptoo = skiptoo - 1
+    end
+    torchPlace()
     tryDigUp()
     turtle.turnLeft()
     tryDig()
@@ -197,6 +251,7 @@ for n = 1, length do
     tryDown()
     tryDig()
     turtle.turnLeft()
+    detectCave()
     torchdist = torchdist + 1
     if n < length then
         tryDig()
@@ -220,11 +275,14 @@ turtle.turnLeft()
 turtle.forward()
 while homeskip > 0 do
     tryDig()
+    detectCave()
     turtle.forward()
     homeskip = homeskip -1
 end
 
 while length > 1 do
+    tryDig()
+    detectCave()
     turtle.forward()
     length = length - 1
 end
@@ -241,14 +299,16 @@ coalFuel = beforeFuel - afterFuel
 coalUse = coalFuel / 80
 
 print("-Logs-")
-print("Docked At Starting Postition")
+print("Docked at starting postition.")
 print(" ")
-print("Mined " .. collected .. " items total")
-print(torchtotal .. " Torches Placed")
-print(coalFuel .. " Fuel Used or " .. coalUse .. " coal")
-print("Traveled " .. toaldist .. " blocks")
+print(collected .. " Mined items.")
+print(blocks_placed .. " Blocks placed.")
+print(torch_error .. " Torches failed to place.")
+print(torchtotal .. " Torches placed.")
+print(coalFuel .. " Fuel used or " .. coalUse .. " coal.")
+print(toaldist .. " Blocks traveled.")
 print(" ")
 print("`forkTunnel` created by Xanthus58")
-print("Version: 1.4")
+print("Version: 1.5")
 
 -- https://pastebin.com/jpfRk9PK
