@@ -4,12 +4,11 @@ beforeFuel = turtle.getFuelLevel()
 
 print("-Information-")
 print("`forkTunnel` created by `Xanthus58`")
-print("Version: 1.5")
+print("Version: 1.5.1")
 print("")
 print("-Instructions-")
 print("Ensure slot 1 is full of coal")
 print("Ensure slot 2 is full of torches")
-print("Ensure slot 4-5 is empty")
 sleep(5)
 print(" ")
 print("-Status-")
@@ -31,7 +30,8 @@ end
 
 local length = tonumber(tArgs[1])
 local skiptoo = tonumber(tArgs[2])
-if length < 1 then
+local skipedblocks = skiptoo
+if length < 0 then
     print("Tunnel length must be positive")
     return
 end
@@ -160,72 +160,59 @@ local function tryForward()
 end
 
 torch_error = 0
-local function torchPlace()
-    if torchdist > 8 then
-        turtle.select(2)
+
+local function torchPlaceUpgraded()
+    if torchdist > 8 then turtle.select(2)
         turtle.turnLeft()
         turtle.turnLeft()
         turtle.forward()
         turtle.up()
         turtle.turnRight()
-        turtle.forward()
+        turtle.place()
         if turtle.detect() == false then
             print("Invalid surface to place torch. Skipping...")
-            turtle.turnRight()
-            turtle.turnRight()
-            turtle.forward()
-            turtle.turnLeft()
-            turtle.down()
-            turtle.forward()
             torch_error = torch_error + 1
         else
-            turtle.turnRight()
-            turtle.turnRight()
-            turtle.forward()
-            turtle.turnLeft()
-            turtle.turnLeft()
-            turtle.place(2)
-            print("Placing Torch...")
-            turtle.down()
-            turtle.turnRight()
-            turtle.forward()
+            print("Placing torch...")
             torchtotal = torchtotal + 1
+        turtle.down()
+        turtle.turnRight()
+        turtle.forward()
+        torchdist = 0
         end
-        torchdist = tonumber(0)
     end
 end
 
 blocks_placed = 0
-local function detectCave()
+local function bridge()
     if turtle.detectDown() == false then
-        turtle.select(3)
-        if turtle.getItemCount(3) == 0 then
-            turtle.select(4)
+        for n = 3, 16 do
+            turtle.select(n)
+            if turtle.getItemCount(n) > 1 then
+            turtle.placeDown()
+            turtle.turnRight()
+            turtle.forward()
+            turtle.placeDown()
+            turtle.turnLeft()
+            turtle.turnLeft()
+            turtle.forward()
+            turtle.forward()
+            turtle.placeDown()
+            turtle.turnRight()
+            turtle.turnRight()
+            turtle.forward()
+            turtle.turnLeft()
+            blocks_placed = blocks_placed + 3
+            end
         end
-        turtle.placeDown()
-        turtle.turnRight()
-        turtle.forward()
-        turtle.placeDown()
-        turtle.turnLeft()
-        turtle.turnLeft()
-        turtle.forward()
-        turtle.forward()
-        turtle.placeDown()
-        turtle.turnRight()
-        turtle.turnRight()
-        turtle.forward()
-        turtle.turnLeft()
-        blocks_placed = blocks_placed + 3
     end
 end
 
-homeskip = skiptoo
-toaldist = length + skiptoo
+totaldist = length + skipedblocks
 
 torchdist = tonumber(7)
 torchtotal = tonumber(0)
 
-print("Mining...")
 tryDig()
 turtle.forward()
 for n = 1, length do
@@ -235,11 +222,16 @@ for n = 1, length do
     end
     while skiptoo > 0 do
         tryDig()
-        detectCave()
+        bridge()
         turtle.forward()
         skiptoo = skiptoo - 1
+        skiped = true
     end
-    torchPlace()
+    if skiped == true then
+        print("Mining...")
+        skiped = false
+    end
+    torchPlaceUpgraded()
     tryDigUp()
     turtle.turnLeft()
     tryDig()
@@ -251,7 +243,7 @@ for n = 1, length do
     tryDown()
     tryDig()
     turtle.turnLeft()
-    detectCave()
+    bridge()
     torchdist = torchdist + 1
     if n < length then
         tryDig()
@@ -273,18 +265,13 @@ turtle.turnLeft()
 turtle.turnLeft()
 
 turtle.forward()
-while homeskip > 0 do
-    tryDig()
-    detectCave()
-    turtle.forward()
-    homeskip = homeskip -1
-end
 
-while length > 1 do
+return_dist = totaldist
+while return_dist > 1 do
     tryDig()
-    detectCave()
+    bridge()
     turtle.forward()
-    length = length - 1
+    return_dist = return_dist - 1
 end
 
 turtle.turnRight()
@@ -306,9 +293,9 @@ print(blocks_placed .. " Blocks placed.")
 print(torch_error .. " Torches failed to place.")
 print(torchtotal .. " Torches placed.")
 print(coalFuel .. " Fuel used or " .. coalUse .. " coal.")
-print(toaldist .. " Blocks traveled.")
+print(totaldist .. " Blocks traveled.")
 print(" ")
 print("`forkTunnel` created by Xanthus58")
-print("Version: 1.5")
+print("Version: 1.5.1")
 
 -- https://pastebin.com/jpfRk9PK
