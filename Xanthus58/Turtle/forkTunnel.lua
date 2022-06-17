@@ -4,7 +4,7 @@ beforeFuel = turtle.getFuelLevel()
 
 print("-Information-")
 print("`forkTunnel` created by `Xanthus58`")
-print("Version: 1.5.1")
+print("Version: 1.5.2")
 print("")
 print("-Instructions-")
 print("Ensure slot 1 is full of coal")
@@ -163,11 +163,6 @@ torch_error = 0
 
 local function torchPlaceUpgraded()
     if torchdist > 8 then turtle.select(2)
-        turtle.turnLeft()
-        turtle.turnLeft()
-        turtle.forward()
-        turtle.up()
-        turtle.turnRight()
         turtle.place()
         if turtle.detect() == false then
             print("Invalid surface to place torch. Skipping...")
@@ -175,9 +170,6 @@ local function torchPlaceUpgraded()
         else
             print("Placing torch...")
             torchtotal = torchtotal + 1
-        turtle.down()
-        turtle.turnRight()
-        turtle.forward()
         torchdist = 0
         end
     end
@@ -213,30 +205,30 @@ totaldist = length + skipedblocks
 torchdist = tonumber(7)
 torchtotal = tonumber(0)
 
+if skiptoo > 0 then
+    print("Skipping " .. skiptoo .. " blocks...")
+end
+
+while skiptoo > 0 do
+    refuel()
+    tryDig()
+    bridge()
+    turtle.forward()
+    skiptoo = skiptoo - 1
+end
+print("Mining...")
+
 tryDig()
 turtle.forward()
+
 for n = 1, length do
     refuel()
-    if skiptoo > 0 then
-        print("Skipping " .. skiptoo .. " blocks...")
-    end
-    while skiptoo > 0 do
-        tryDig()
-        bridge()
-        turtle.forward()
-        skiptoo = skiptoo - 1
-        skiped = true
-    end
-    if skiped == true then
-        print("Mining...")
-        skiped = false
-    end
-    torchPlaceUpgraded()
     tryDigUp()
     turtle.turnLeft()
     tryDig()
     tryUp()
     tryDig()
+    torchPlaceUpgraded()
     turtle.turnRight()
     turtle.turnRight()
     tryDig()
@@ -264,10 +256,14 @@ print( "Returning to dock..." )
 turtle.turnLeft()
 turtle.turnLeft()
 
-turtle.forward()
+if length == 0 then 
+    turtle.forward()
+end
 
 return_dist = totaldist
-while return_dist > 1 do
+
+while return_dist > 0 do
+    refuel()
     tryDig()
     bridge()
     turtle.forward()
@@ -277,11 +273,13 @@ end
 turtle.turnRight()
 turtle.turnRight()
 
+if skiptoo > 0 then
+    turtle.forward()
+end
+
 term.clear()
 
-afterFuel = tonumber(0)
 afterFuel = turtle.getFuelLevel()
-
 coalFuel = beforeFuel - afterFuel
 coalUse = coalFuel / 80
 
@@ -296,6 +294,6 @@ print(coalFuel .. " Fuel used or " .. coalUse .. " coal.")
 print(totaldist .. " Blocks traveled.")
 print(" ")
 print("`forkTunnel` created by Xanthus58")
-print("Version: 1.5.1")
+print("Version: 1.5.2")
 
 -- https://pastebin.com/jpfRk9PK
