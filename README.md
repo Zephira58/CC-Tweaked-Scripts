@@ -32,3 +32,11 @@ you may run `pastebin get <id>` to download the file locally to your CC
 
 > Usage: `autoMine` Ensure the Turtle is facing and next to the block your attempting to mine.
 
+#### theFlyingMan
+> Name: theFlyingMan
+
+> ID: `hsErRyNA`
+
+> Description: Flies up forever...
+
+> Usage: pastebin run hsErRyNA
