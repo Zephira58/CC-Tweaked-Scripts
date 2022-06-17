@@ -4,7 +4,7 @@ beforeFuel = turtle.getFuelLevel()
 
 print("-Information-")
 print("`forkTunnel` created by `Xanthus58`")
-print("Version: 1.5.2")
+print("Version: 1.5.3")
 print("")
 print("-Instructions-")
 print("Ensure slot 1 is full of coal")
@@ -180,21 +180,23 @@ local function bridge()
     if turtle.detectDown() == false then
         for n = 3, 16 do
             turtle.select(n)
-            if turtle.getItemCount(n) > 1 then
-            turtle.placeDown()
-            turtle.turnRight()
-            turtle.forward()
-            turtle.placeDown()
-            turtle.turnLeft()
-            turtle.turnLeft()
-            turtle.forward()
-            turtle.forward()
-            turtle.placeDown()
-            turtle.turnRight()
-            turtle.turnRight()
-            turtle.forward()
-            turtle.turnLeft()
-            blocks_placed = blocks_placed + 3
+            if turtle.detectDown() == false then
+                if turtle.getItemCount(n) > 1 then
+                turtle.placeDown()
+                turtle.turnRight()
+                turtle.forward()
+                turtle.placeDown()
+                turtle.turnLeft()
+                turtle.turnLeft()
+                turtle.forward()
+                turtle.forward()
+                turtle.placeDown()
+                turtle.turnRight()
+                turtle.turnRight()
+                turtle.forward()
+                turtle.turnLeft()
+                blocks_placed = blocks_placed + 3
+                end
             end
         end
     end
@@ -294,6 +296,6 @@ print(coalFuel .. " Fuel used or " .. coalUse .. " coal.")
 print(totaldist .. " Blocks traveled.")
 print(" ")
 print("`forkTunnel` created by Xanthus58")
-print("Version: 1.5.2")
+print("Version: 1.5.3")
 
 -- https://pastebin.com/jpfRk9PK
