@@ -40,3 +40,13 @@ you may run `pastebin get <id>` to download the file locally to your CC
 > Description: Flies up forever...
 
 > Usage: pastebin run hsErRyNA
+
+#### tntBomber
+
+> Name: tntBomber
+
+> ID: `ELcjPFta`
+
+> Description: Flies up then lights tnt...
+
+> Usage: pastebin run hsErRyNA <height>
