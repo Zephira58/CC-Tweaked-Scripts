@@ -32,6 +32,14 @@ you may run `pastebin get <id>` to download the file locally to your CC
 
 > Usage: `autoMine` Ensure the Turtle is facing and next to the block your attempting to mine.
 
+#### botPlacer
+> Name: botPlacer
+
+> ID: `8PkWtV72`
+
+> Description: A simple fork off forkTunnel 1.6.0 it automaticly places turtles to create a strip mine with one command. 
+
+> Usage: `<length> <skiptoo>` Please ensure that coal/fuel is in slot 1, and torches are in slot 2. and that turtles are in slot 3 for full effect
 #### theFlyingMan
 > Name: theFlyingMan
 

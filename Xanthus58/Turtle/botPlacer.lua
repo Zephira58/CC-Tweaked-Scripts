@@ -4,12 +4,13 @@ beforeFuel = turtle.getFuelLevel()
 computerLabel = os.getComputerLabel()
 
 print("-Information-")
-print("`forkTunnel` created by `Xanthus58`")
-print("Version: 1.6.0")
+print("`botPlacer` created by `Xanthus58`")
+print("Version: 1.0.0")
 print("")
 print("-Instructions-")
 print("Ensure slot 1 is full of coal")
 print("Ensure slot 2 is full of torches")
+print("Ensure slot 3 is full of turtles")
 os.setComputerLabel("Waiting...")
 print("\nPress any key once your ready...")
 os.pullEvent("key")
@@ -181,7 +182,7 @@ end
 blocks_placed = 0
 local function bridge()
     if turtle.detectDown() == false then
-        for n = 3, 16 do
+        for n = 4, 16 do
             turtle.select(n)
             if turtle.detectDown() == false then
                 if turtle.getItemCount(n) > 1 then
@@ -301,6 +302,25 @@ while skiptoo > 0 do
     traveledBlocks = traveledBlocks + 1
 end
 
+botDistance = 0
+botTotal = 0
+local function setup()
+    if botDistance > 4 then
+        print("Placing Bots...")
+        os.setComputerLabel("Placing Bots...")
+        turtle.select(3)
+        turtle.turnLeft()
+        turtle.place()
+        turtle.turnRight()
+        turtle.turnRight()
+        turtle.place()
+        turtle.turnLeft()
+        botTotal = botTotal + 2
+        botDistance = 0
+    end
+    os.setComputerLabel("Mining...")
+end
+
 print("Mining...")
 os.setComputerLabel("Mining...")
 tryDig()
@@ -323,7 +343,9 @@ for n = 1, length do
     torchdist = torchdist + 1
     traveledBlocks = traveledBlocks + 1
     totalTraveld = totalTraveld + 1
+    botDistance = botDistance + 1
     invcheck()
+    setup()
     if n < length then
         tryDig()
         if not tryForward() then
@@ -349,12 +371,13 @@ coalUse = coalFuel / 80
 print("-Logs-")
 print(collected .. " Mined items.")
 print(blocks_placed .. " Blocks placed.")
+print(botTotal .. " Turtles placed.")
 print(torch_error .. " Torches failed to place.")
 print(torchtotal .. " Torches placed.")
 print(coalFuel .. " Fuel used or " .. coalUse .. " coal.")
 print(totalTraveld .. " Blocks traveled.")
 print("The mine is "..traveledBlocks.. " Blocks Deep\n")
-print("`forkTunnel` created by Xanthus58")
-print("Version: 1.6.0")
+print("`botPlacer` created by Xanthus58")
+print("Version: 1.0.0")
 
 -- https://pastebin.com/jpfRk9PK
