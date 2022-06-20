@@ -1,18 +1,22 @@
 term.clear()
 beforeFuel = tonumber(0)
 beforeFuel = turtle.getFuelLevel()
+computerLabel = os.getComputerLabel()
 
 print("-Information-")
 print("`forkTunnel` created by `Xanthus58`")
-print("Version: 1.5.3")
+print("Version: 1.6.0")
 print("")
 print("-Instructions-")
 print("Ensure slot 1 is full of coal")
 print("Ensure slot 2 is full of torches")
-sleep(5)
-print(" ")
+os.setComputerLabel("Waiting...")
+print("\nPress any key once your ready...")
+os.pullEvent("key")
+term.clear()
 print("-Status-")
 
+traveledBlocks = 0
 if not turtle then
     printError("Requires a Turtle")
     return
@@ -160,14 +164,13 @@ local function tryForward()
 end
 
 torch_error = 0
-
 local function torchPlaceUpgraded()
     if torchdist > 8 then turtle.select(2)
         turtle.place()
         if turtle.detect() == false then
-            print("Invalid surface to place torch. Skipping...")
             torch_error = torch_error + 1
         else
+            os.setComputerLabel("Placing torch...")
             print("Placing torch...")
             torchtotal = torchtotal + 1
         torchdist = 0
@@ -202,13 +205,87 @@ local function bridge()
     end
 end
 
-totaldist = length + skipedblocks
+local function returnHome()
+    os.setComputerLabel("Returning...")
+    print( "Returning to dock..." )
+    turtle.turnLeft()
+    turtle.turnLeft()
+    if length == 0 then 
+        turtle.forward()
+    end
+    return_dist = traveledBlocks
+    while return_dist > 0 do
+        refuel()
+        tryDig()
+        bridge()
+        turtle.forward()
+        return_dist = return_dist - 1
+    end
+    turtle.turnRight()
+    turtle.turnRight()
+    if skiptoo > 0 then
+        turtle.forward()
+    end
+end
+
+--local unloaded = 0
+--local function unload(_bKeepOneFuelStack)
+--    print("Unloading items...")
+--    for n = 3, 16 do
+--        local nCount = turtle.getItemCount(n)
+--        if nCount > 0 then
+--            turtle.select(n)
+--            local bDrop = true
+--            if _bKeepOneFuelStack and turtle.refuel(0) then
+--                bDrop = false
+--                _bKeepOneFuelStack = false
+--            end
+--            if bDrop then
+--                turtle.drop()
+--                unloaded = unloaded + nCount
+--            end
+--        end
+--    end
+--    collected = 0
+--    turtle.select(1)
+--    print("All items unloaded...")
+--end
+
+local function goBack()
+    print("Returning to mine...")
+    os.setComputerLabel("Returning to mine...")
+    goback = traveledBlocks
+    while goback > 0 do
+        turtle.forward()
+        goback = goback -1
+    end
+    os.setComputerLabel("Mining...")
+end
+
+local function invcheck()
+    local fullDetect = true
+    for n = 3,16 do
+        slotCount = turtle.getItemCount(n)
+        if slotCount == 0 then
+            fullDetect = false
+        end
+    end
+    if fullDetect then
+        print("No empty slots left...")
+        returnHome()
+        os.setComputerLabel("Inventory Full...")
+        print("Press any key to continue mining")
+        os.pullEvent("key")
+        goBack()
+    end
+end 
 
 torchdist = tonumber(7)
 torchtotal = tonumber(0)
 
 if skiptoo > 0 then
     print("Skipping " .. skiptoo .. " blocks...")
+    os.setComputerLabel("Skipping...")
 end
 
 while skiptoo > 0 do
@@ -217,12 +294,13 @@ while skiptoo > 0 do
     bridge()
     turtle.forward()
     skiptoo = skiptoo - 1
+    traveledBlocks = traveledBlocks + 1
 end
-print("Mining...")
 
+print("Mining...")
+os.setComputerLabel("Mining...")
 tryDig()
 turtle.forward()
-
 for n = 1, length do
     refuel()
     tryDigUp()
@@ -239,6 +317,8 @@ for n = 1, length do
     turtle.turnLeft()
     bridge()
     torchdist = torchdist + 1
+    traveledBlocks = traveledBlocks + 1
+    invcheck()
     if n < length then
         tryDig()
         if not tryForward() then
@@ -251,33 +331,9 @@ for n = 1, length do
 
 end
 
+returnHome()
 
-print( "Returning to dock..." )
-
--- Return to where we started
-turtle.turnLeft()
-turtle.turnLeft()
-
-if length == 0 then 
-    turtle.forward()
-end
-
-return_dist = totaldist
-
-while return_dist > 0 do
-    refuel()
-    tryDig()
-    bridge()
-    turtle.forward()
-    return_dist = return_dist - 1
-end
-
-turtle.turnRight()
-turtle.turnRight()
-
-if skiptoo > 0 then
-    turtle.forward()
-end
+os.setComputerLabel(computerLabel)
 
 term.clear()
 
@@ -286,16 +342,14 @@ coalFuel = beforeFuel - afterFuel
 coalUse = coalFuel / 80
 
 print("-Logs-")
-print("Docked at starting postition.")
-print(" ")
+print("Docked at starting postition.\n")
 print(collected .. " Mined items.")
 print(blocks_placed .. " Blocks placed.")
 print(torch_error .. " Torches failed to place.")
 print(torchtotal .. " Torches placed.")
 print(coalFuel .. " Fuel used or " .. coalUse .. " coal.")
-print(totaldist .. " Blocks traveled.")
-print(" ")
+print(traveledBlocks .. " Blocks traveled.\n")
 print("`forkTunnel` created by Xanthus58")
-print("Version: 1.5.3")
+print("Version: 1.6.0")
 
 -- https://pastebin.com/jpfRk9PK

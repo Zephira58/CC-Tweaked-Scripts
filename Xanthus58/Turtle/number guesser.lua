@@ -1,4 +1,4 @@
--- small funny program to mess with ppl
+-- small program for my server i made to mess with someone; dont use this one it just spits random numbers
 
 term.clear()
 
