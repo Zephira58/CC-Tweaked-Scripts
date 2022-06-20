@@ -17,6 +17,7 @@ term.clear()
 print("-Status-")
 
 traveledBlocks = 0
+totalTraveld = 0
 if not turtle then
     printError("Requires a Turtle")
     return
@@ -198,6 +199,7 @@ local function bridge()
                 turtle.turnRight()
                 turtle.forward()
                 turtle.turnLeft()
+                totalTraveld = totalTraveld + 4
                 blocks_placed = blocks_placed + 3
                 end
             end
@@ -220,6 +222,7 @@ local function returnHome()
         bridge()
         turtle.forward()
         return_dist = return_dist - 1
+        totalTraveld = totalTraveld + 1
     end
     turtle.turnRight()
     turtle.turnRight()
@@ -257,6 +260,7 @@ local function goBack()
     goback = traveledBlocks
     while goback > 0 do
         turtle.forward()
+        totalTraveld = totalTraveld +1
         goback = goback -1
     end
     os.setComputerLabel("Mining...")
@@ -294,6 +298,7 @@ while skiptoo > 0 do
     bridge()
     turtle.forward()
     skiptoo = skiptoo - 1
+    totalTraveld = totalTraveld + 1
     traveledBlocks = traveledBlocks + 1
 end
 
@@ -318,6 +323,7 @@ for n = 1, length do
     bridge()
     torchdist = torchdist + 1
     traveledBlocks = traveledBlocks + 1
+    totalTraveld = totalTraveld + 1
     invcheck()
     if n < length then
         tryDig()
@@ -342,13 +348,13 @@ coalFuel = beforeFuel - afterFuel
 coalUse = coalFuel / 80
 
 print("-Logs-")
-print("Docked at starting postition.\n")
 print(collected .. " Mined items.")
 print(blocks_placed .. " Blocks placed.")
 print(torch_error .. " Torches failed to place.")
 print(torchtotal .. " Torches placed.")
 print(coalFuel .. " Fuel used or " .. coalUse .. " coal.")
-print(traveledBlocks .. " Blocks traveled.\n")
+print(totalTraveld .. " Blocks traveled.")
+print("The mine is "..traveledBlocks.. " Blocks Deep\n")
 print("`forkTunnel` created by Xanthus58")
 print("Version: 1.6.0")
 
