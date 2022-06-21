@@ -55,6 +55,6 @@ you may run `pastebin get <id>` to download the file locally to your CC
 
 > ID: `ELcjPFta`
 
-> Description: Flies up then lights tnt...
+> Description: Flies up then lights a singlualr tnt block before landing at its orignal position
 
 > Usage: pastebin run hsErRyNA <height>
